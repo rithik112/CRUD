@@ -50,4 +50,14 @@ router.put('/:id', (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No Record Found : ${req.params.id}`);
+
+    list.findOneAndDelete(req.params.id, (err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error while Deleting :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 module.exports = router;
