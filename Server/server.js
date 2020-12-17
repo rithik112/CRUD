@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000
 const cors = require('cors');
 
-const { mongoose } = require('./database.js');
+const mongoose  = require('./database.js');
+var list_R = require('./routes/list');
 
 const app = express();
 app.use(cors());
@@ -14,3 +15,5 @@ app.get('/', function (req, res) {
 })
 
 app.listen(PORT, () => console.log('Server is Up on Port : ' + PORT));
+
+app.use('/lists', list_R);
