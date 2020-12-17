@@ -10,4 +10,17 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+    var lis = new list({
+        name: req.body.name,
+        position: req.body.position,
+        area: req.body.area,
+        salary: req.body.salary,
+    });
+    lis.save((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error while Saving the List :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 module.exports = router;
