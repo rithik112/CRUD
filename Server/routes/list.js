@@ -24,4 +24,14 @@ router.post('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No Record Found : ${req.params.id}`);
+
+    list.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving list :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 module.exports = router;
