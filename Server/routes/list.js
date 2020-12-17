@@ -34,4 +34,20 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No Record Found : ${req.params.id}`);
+
+    var lis = {
+        name: req.body.name,
+        position: req.body.position,
+        area: req.body.area,
+        salary: req.body.salary,
+    };
+    list.findByIdAndUpdate(req.params.id, { $set: lis }, { new: true }, (err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error while Updating :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 module.exports = router;
